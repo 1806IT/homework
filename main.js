@@ -90,7 +90,7 @@ var test5=new Vue({
             '<button @click="reduce">-20</button>' +
             '</div>',
             data:function(){
-                return count=2000
+                return {count:2000}
             },
             methods:{
                 increase:function(){
@@ -108,5 +108,44 @@ var test5=new Vue({
         handleTotal:function(total){
             this.total=total
         }
+    }
+})
+var test6=new Vue({
+    el:'#test6',
+    data:{
+        bus:new Vue(),
+        isgreen:true
+    },
+    components:{
+        'achild':{
+            template:'<div :class={red:isred}>'+
+            '<button @click="handle">点击向b传数据'+'</button>'+'{{this.dataA}}'+
+            '</div>',
+            data:function(){
+                return {
+                    isred:true,
+                    dataA:'我是A组件的数据，你应该可以在B组件看到我'
+                }
+            },
+            methods:{
+                handle:function(){
+                    this.$root.bus.$emit('iama',this.dataA)
+                }
+            }
+        },
+        'bchild':{
+            template: '<div>{{this.dataB}}</div>',
+            created: function () {
+                this.$root.bus.$on('iama',function(value){
+                    this.dataB=value
+                    console.log(this.dataB)                  
+                })
+            },
+            data: function(){
+                return {
+                    dataB:'我是B数组的数据'
+                }
+            }         
+        },
     }
 })
