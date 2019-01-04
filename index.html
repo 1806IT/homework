@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="test2">
+    分别写出如何全局注册和局部注册组件,全局组件背景用黄底黑子，局部组件用绿底红字 <br>
+    <overall-situation :class="overallsituation"></overall-situation>
+    <topo-situation></topo-situation>
+    </div>
+    <hr>
+    <div id="test3">父组件给子组件传递信息
+        <br>
+        <parent-to-children msg='这个界面都是父组件的,直接给内容就不要去绑定了'></parent-to-children>
+        <child :fromparent="parent" :class="{issizeblue:true}"></child>
+    </div>
+    <div id="test4">
+        子组件传给父组件1,用v-model方法 <br>
+        <p>银行余额为{{money}}</p>
+        <child-to-parent v-model="money"></child-to-parent>
+    </div>
+    <div id="test5">
+        组组件传父组件2--自定义事件
+        <p>余额为{{total}}</p>
+        <child @change='handleTotal'></child>
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.5.21/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
